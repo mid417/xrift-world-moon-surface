@@ -1,9 +1,7 @@
 import { SpawnPoint } from '@xrift/world-components'
-import { RigidBody } from '@react-three/rapier'
-import { useRef } from 'react'
-import { Mesh } from 'three'
 import { Skybox } from './components/Skybox'
-import { COLORS, WORLD_CONFIG } from './constants'
+import { Earth } from './components/Earth'
+import { MoonSurface } from './components/MoonSurface'
 
 export interface WorldProps {
   position?: [number, number, number]
@@ -11,42 +9,37 @@ export interface WorldProps {
 }
 
 export const World: React.FC<WorldProps> = ({ position = [0, 0, 0], scale = 1 }) => {
-  const groundRef = useRef<Mesh>(null)
-  const worldSize = WORLD_CONFIG.size * scale
-
   return (
     <group position={position} scale={scale}>
-      {/* Skybox - 360度パノラマ背景 */}
+      {/* シェーダーベースの星空 */}
       <Skybox radius={500} />
 
-      {/* プレイヤーのスポーン地点 */}
-      <group position={[0.11, 0, 7.59]} rotation={[0, 0, 0]}>
+      {/* プレイヤーのスポーン地点 - 月面中央、北（地球方向）を向く */}
+      <group position={[0, 0, 30]} rotation={[0, 0, 0]}>
         <SpawnPoint />
       </group>
 
-      {/* 照明設定 */}
-      <ambientLight intensity={0.3} />
+      {/* 照明設定 - 宇宙空間なので暗め */}
+      <ambientLight intensity={0.12} color="#ccccdd" />
       <directionalLight
-        position={[5, 10, 5]}
-        intensity={1.5}
+        position={[20, 30, 10]}
+        intensity={0.8}
+        color="#fffaf0"
         castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-far={50}
-        shadow-camera-left={-15}
-        shadow-camera-right={15}
-        shadow-camera-top={15}
-        shadow-camera-bottom={-15}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-far={100}
+        shadow-camera-left={-40}
+        shadow-camera-right={40}
+        shadow-camera-top={70}
+        shadow-camera-bottom={-70}
       />
 
-      {/* 地面 */}
-      <RigidBody type="fixed" colliders="cuboid" restitution={0} friction={0}>
-        <mesh ref={groundRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-          <planeGeometry args={[worldSize, worldSize]} />
-          <meshLambertMaterial color={COLORS.ground} />
-        </mesh>
-      </RigidBody>
+      {/* 月面（地面） */}
+      <MoonSurface />
 
+      {/* 地球 - 北方向の空に配置 */}
+      <Earth position={[0, 150, -800]} radius={100} />
     </group>
   )
 }

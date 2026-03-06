@@ -1,12 +1,12 @@
 {
   "physics": {
-    "gravity": 9.81,
+    "gravity": 1.62,
     "allowInfiniteJump": true
   },
   "world": {
     "distDir": "./dist",
-    "title": "サンプルワールド",
-    "description": "React Three FiberとRapierで作られたサンプルワールドです",
+    "title": "月面ワールド",
+    "description": "月面を歩き回り、宇宙空間に浮かぶ地球を眺めることができるワールドです",
     "thumbnailPath": "thumbnail.png",
     "buildCommand": "npm run build",
     "ignore": [
