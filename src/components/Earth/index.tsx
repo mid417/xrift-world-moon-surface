@@ -54,7 +54,7 @@ const atmosphereGlowFragmentShader = /* glsl */ `
     float facing = clamp(dot(normalize(-vNormal), normalize(vViewDirection)), 0.0, 1.0);
     // facing: 外縁（limb）≈ 0、内縁（地球表面寄り）≈ 大きい値
     // → facing を直接使うことで内側を明るく、外側を暗く
-    float glow = pow(facing, 1.8) * 1.6;
+    float glow = pow(facing, 1.8) * 2.0;
     vec3 color = vec3(0.15, 0.5, 1.0) * glow;
 
     gl_FragColor = vec4(color, min(glow * 0.85, 1.0));
