@@ -19,6 +19,8 @@ const fragmentShader = /* glsl */ `
   uniform float uTime;
   varying vec3 vPosition;
 
+  const float STAR_SIZE_BOOST = 1.18;
+
   // Hash function for pseudo-random values
   float hash(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
@@ -61,7 +63,7 @@ const fragmentShader = /* glsl */ `
         float dist = length(gridUv - starPos);
 
         // Star size varies
-        float starSize = 0.01 + rnd2 * 0.02 + fi * 0.005;
+        float starSize = (0.01 + rnd2 * 0.02 + fi * 0.005) * STAR_SIZE_BOOST;
         float brightness = smoothstep(starSize, 0.0, dist);
 
         // Twinkle animation - each star has its own phase and speed

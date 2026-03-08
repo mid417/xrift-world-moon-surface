@@ -20,7 +20,7 @@ export const World: React.FC<WorldProps> = ({ position = [0, 0, 0], scale = 1 })
       </group>
 
       {/* 照明設定 - 宇宙空間なので暗め */}
-      <ambientLight intensity={0.12} color="#ccccdd" />
+      <ambientLight intensity={0.3} color="#ffffff" />
       <directionalLight
         position={[20, 30, 10]}
         intensity={0.8}
