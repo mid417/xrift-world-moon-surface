@@ -1,8 +1,4 @@
 {
-  "physics": {
-    "gravity": 1.62,
-    "allowInfiniteJump": true
-  },
   "world": {
     "distDir": "./dist",
     "title": "月面ワールド",
@@ -26,6 +22,10 @@
       "**/__federation_shared_react/jsx-runtime-*.js",
       "**/rapier.es-*.js",
       "**/hls-*.js"
-    ]
+    ],
+    "physics": {
+      "gravity": 1.62,
+      "allowInfiniteJump": true
+    }
   }
 }
